@@ -13,6 +13,14 @@ class HomeController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('index.html.twig');
+        return $this->render('front/index.html.twig');
+    }
+
+    /**
+     * @Route("/admin", name="admin_home")
+     */
+    public function admin(): Response
+    {
+        return $this->redirectToRoute("app_login");
     }
 }
