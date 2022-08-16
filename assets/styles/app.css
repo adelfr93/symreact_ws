@@ -1,3 +1,4 @@
+@import "~bootstrap/dist/css/bootstrap";
 body {
-    background-color: rgb(158, 158, 158);
+    background-color: #fff;
 }
