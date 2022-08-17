@@ -32,6 +32,11 @@ class Product
      */
     private $description;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $actif;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +74,18 @@ class Product
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function isActif(): ?bool
+    {
+        return $this->actif;
+    }
+
+    public function setActif(?bool $actif): self
+    {
+        $this->actif = $actif;
 
         return $this;
     }

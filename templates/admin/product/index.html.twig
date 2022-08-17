@@ -5,6 +5,9 @@
 {% block body %}
     <h1>Product index</h1>
 
+    <div class="navigation text-right">
+    {{ knp_pagination_render(products) }}
+    </div>
     <table class="table">
         <thead>
             <tr>
@@ -21,10 +24,10 @@
                 <td>{{ product.id }}</td>
                 <td>{{ product.name }}</td>
                 <td>{{ product.slug }}</td>
-                <td>{{ product.description }}</td>
+                <td>{{ product.description|u.truncate(40)  }}</td>
                 <td>
-                    <a href="{{ path('app_product_show', {'id': product.id}) }}">show</a>
-                    <a href="{{ path('app_product_edit', {'id': product.id}) }}">edit</a>
+                    <a class="btn btn-info d-inline-block" href="{{ path('app_product_show', {'id': product.id}) }}">show</a>
+                    <a class="btn btn-primary d-inline-block" href="{{ path('app_product_edit', {'id': product.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -34,6 +37,8 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_product_new') }}">Create new</a>
+    <div class="navigation text-right">
+    {{ knp_pagination_render(products) }}
+    </div>
+    <a class="btn btn-dark" href="{{ path('app_product_new') }}">Create new</a>
 {% endblock %}
