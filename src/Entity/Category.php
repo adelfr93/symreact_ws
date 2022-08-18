@@ -2,15 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\ProductRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Repository\CategoryRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ProductRepository::class)
+ * @ORM\Entity(repositoryClass=CategoryRepository::class)
  */
-class Product
+class Category
 {
     /**
      * @ORM\Id
@@ -40,14 +38,9 @@ class Product
     private $actif;
 
     /**
-     * @ORM\OneToMany(targetEntity=Category::class, mappedBy="product")
+     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="idcaegory")
      */
-    private $idcaegory;
-
-    public function __construct()
-    {
-        $this->idcaegory = new ArrayCollection();
-    }
+    private $product;
 
     public function getId(): ?int
     {
@@ -102,32 +95,14 @@ class Product
         return $this;
     }
 
-    /**
-     * @return Collection<int, Category>
-     */
-    public function getIdcaegory(): Collection
+    public function getProduct(): ?Product
     {
-        return $this->idcaegory;
+        return $this->product;
     }
 
-    public function addIdcaegory(Category $idcaegory): self
+    public function setProduct(?Product $product): self
     {
-        if (!$this->idcaegory->contains($idcaegory)) {
-            $this->idcaegory[] = $idcaegory;
-            $idcaegory->setProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removeIdcaegory(Category $idcaegory): self
-    {
-        if ($this->idcaegory->removeElement($idcaegory)) {
-            // set the owning side to null (unless already changed)
-            if ($idcaegory->getProduct() === $this) {
-                $idcaegory->setProduct(null);
-            }
-        }
+        $this->product = $product;
 
         return $this;
     }

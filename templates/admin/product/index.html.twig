@@ -12,6 +12,7 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Actif</th>
                 <th>Name</th>
                 <th>Slug</th>
                 <th>Description</th>
@@ -22,6 +23,7 @@
         {% for product in products %}
             <tr>
                 <td>{{ product.id }}</td>
+                <td>{{ product.actif }}</td>
                 <td>{{ product.name }}</td>
                 <td>{{ product.slug }}</td>
                 <td>{{ product.description|u.truncate(40)  }}</td>
