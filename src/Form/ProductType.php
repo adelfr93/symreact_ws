@@ -16,6 +16,7 @@ class ProductType extends AbstractType
             ->add('actif')
             ->add('name')
             ->add('slug')
+            //->add('idcaegory',CheckboxType::class)
             ->add('description')
         ;
     }
