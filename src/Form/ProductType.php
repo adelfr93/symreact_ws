@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Product;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,7 +18,9 @@ class ProductType extends AbstractType
             ->add('name')
             ->add('slug')
             //->add('idcaegory',CheckboxType::class)
-            ->add('description')
+            ->add('description', TextareaType::class , [
+                'attr' => ['class' => 'tinymce']
+            ])
         ;
     }
 
