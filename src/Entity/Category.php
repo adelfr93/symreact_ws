@@ -38,7 +38,7 @@ class Category
     private $actif;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="idcaegory")
+     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="category")
      */
     private $product;
 

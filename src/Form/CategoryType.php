@@ -16,7 +16,6 @@ class CategoryType extends AbstractType
             ->add('slug')
             ->add('description')
             ->add('actif')
-            //->add('product')
         ;
     }
 

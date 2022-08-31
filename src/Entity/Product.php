@@ -40,13 +40,20 @@ class Product
     private $actif;
 
     /**
-     * @ORM\OneToMany(targetEntity=Category::class, mappedBy="product")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $idcaegory;
+    private $price;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $marque;
+
 
     public function __construct()
     {
         $this->idcaegory = new ArrayCollection();
+        $this->category = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -101,33 +108,27 @@ class Product
 
         return $this;
     }
-
-    /**
-     * @return Collection<int, Category>
-     */
-    public function getIdcaegory(): Collection
+    
+    public function getPrice(): ?string
     {
-        return $this->idcaegory;
+        return $this->price;
     }
 
-    public function addIdcaegory(Category $idcaegory): self
+    public function setPrice(?string $price): self
     {
-        if (!$this->idcaegory->contains($idcaegory)) {
-            $this->idcaegory[] = $idcaegory;
-            $idcaegory->setProduct($this);
-        }
+        $this->price = $price;
 
         return $this;
     }
 
-    public function removeIdcaegory(Category $idcaegory): self
+    public function getMarque(): ?string
     {
-        if ($this->idcaegory->removeElement($idcaegory)) {
-            // set the owning side to null (unless already changed)
-            if ($idcaegory->getProduct() === $this) {
-                $idcaegory->setProduct(null);
-            }
-        }
+        return $this->marque;
+    }
+
+    public function setMarque(?string $marque): self
+    {
+        $this->marque = $marque;
 
         return $this;
     }
