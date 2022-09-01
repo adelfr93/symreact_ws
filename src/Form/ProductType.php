@@ -24,18 +24,20 @@ class ProductType extends AbstractType
                 'class' => Category::class,
                 'choice_label' => 'name'
             ]) */
-            /* ->add('category', EntityType::class, [
+            ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'query_builder' => function (CategoryRepository $er) {
                     return $er->createQueryBuilder('u')
-                            ->orderBy('u.name', 'ASC');
+                                ->where('u.actif = 1')
+                                ->orderBy('u.name', 'ASC');
                 },
+                'choice_label' => 'name',
                 'multiple' => false,
                 'expanded' => false,
                 'required' => true,
                 'placeholder' => null,
                 'label'=> 'Catégorie',
-            ]) */
+            ])
             ->add('marque', ChoiceType::class,[
                 'choices' => [
                     'Marque 1' => 'Marque 1',
