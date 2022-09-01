@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\ProductRepository;
+use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ProductRepository::class)
+ * @ORM\Entity(repositoryClass=CategoryRepository::class)
  */
-class Product
+class Category
 {
     /**
      * @ORM\Id
@@ -40,34 +40,13 @@ class Product
     private $actif;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="category")
      */
-    private $price;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $marque;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="products")
-     */
-    private $category;
-
-    /**
-     * @ORM\Column(type="datetime_immutable")
-     */
-    private $createdAt;
-
-    /**
-     * @ORM\Column(type="datetime_immutable")
-     */
-    private $updatedAt;
-
+    private $products;
 
     public function __construct()
     {
-        
+        $this->products = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -122,64 +101,46 @@ class Product
 
         return $this;
     }
-    
-    public function getPrice(): ?string
+
+    public function getProduct(): ?Product
     {
-        return $this->price;
+        return $this->product;
     }
 
-    public function setPrice(?string $price): self
+    public function setProduct(?Product $product): self
     {
-        $this->price = $price;
+        $this->product = $product;
 
         return $this;
     }
 
-    public function getMarque(): ?string
+    /**
+     * @return Collection<int, Product>
+     */
+    public function getProducts(): Collection
     {
-        return $this->marque;
+        return $this->products;
     }
 
-    public function setMarque(?string $marque): self
+    public function addProduct(Product $product): self
     {
-        $this->marque = $marque;
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+            $product->setCategory($this);
+        }
 
         return $this;
     }
 
-    public function getCategory(): ?Category
+    public function removeProduct(Product $product): self
     {
-        return $this->category;
-    }
-
-    public function setCategory(?Category $category): self
-    {
-        $this->category = $category;
+        if ($this->products->removeElement($product)) {
+            // set the owning side to null (unless already changed)
+            if ($product->getCategory() === $this) {
+                $product->setCategory(null);
+            }
+        }
 
         return $this;
     }
-
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeImmutable
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-        return $this;
-    }
-
 }
